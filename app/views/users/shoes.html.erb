@@ -1,0 +1,32 @@
+<h1>Hi <%= @user.first_name %></h1>
+<a href ="/users/<%= @user.id %>">Go To Dashboard</a>
+<a href = "/users/log_out">Log Out</a>
+
+<h1>All Products</h1>
+
+<table>
+	<th>
+		<tr>
+			<td>Product</td>
+			<td>Seller</td>
+			<td>Date Posted</td>
+			<td>Amount</td>
+			<td>Action</td>
+		</tr>
+	</th>
+	<% @shoes.each do |shoe| %>
+	<tr>
+		<td><%= shoe.product %></td>
+		<td><%= shoe.user_id %></td>
+		<td><%= shoe.created_at %></td>
+		<td><%= shoe.price %></td>
+		<td><form action="/users/<%= shoe.id %>/buy" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<input type="hidden" name="_method" value="delete">
+	<input type="hidden" name="seller" value="<%= shoe.user_id %>">
+	<input type="submit" value="Buy">
+</form></td>
+	</tr>
+	<% end %>
+</table>
+

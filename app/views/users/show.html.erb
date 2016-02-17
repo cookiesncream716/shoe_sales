@@ -1,0 +1,82 @@
+<h1>Hi <%= @user.first_name %></h1>
+<a href ="/shoes">Go To All Products</a>
+<a href = "/users/log_out">Log Out</a>
+
+<p>Sell Product</p>
+<form action="/users/sell" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<p>Name<input type="text" name="product"></p>
+	<p>Price<input type="text" name="price"></p>
+	<input type="submit" value="Sell">
+</form>
+
+<h3>Your products that are not yet sold</h3>
+<table>
+	<th>
+		<tr>
+			<td>Product</td>
+			<td>Date Posted</td>
+			<td>Amount</td>
+			<td>Action</td>
+		</tr>
+	</th>
+	<% @shoes.each do |shoe| %>
+	<tr>
+		<td><%= shoe.product %></td>
+		<td><%= shoe.created_at %></td>
+		<td><%= shoe.price %></td>
+		<td><form action="/users/<%= shoe.id %>" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<input type="hidden" name="_method" value="delete">
+	<input type="submit" value="Remove">
+</form></td>
+	</tr>
+	<% end %>
+</table>
+
+<h3>Purchases</h3>
+<table>
+	<th>
+		<tr>
+			<td>Product</td>
+			<td>Date Bought</td>
+			<td>Seller</td>
+			<td>Amount</td>
+		</tr>
+	</th>
+	<% @purchases.each do |p| %>
+	<tr>
+		<td><%= p.shoe_id %></td>
+		<td><%= p.created_at %></td>
+		<td><%= p.user_id %></td>
+		<td><%= p.amount %></td>
+	</tr>
+	<% end %>
+</table>
+<p>Total</p>
+<br>
+<br>
+<h3>Sales</h3>
+<table>
+	<th>
+		<tr>
+			<td>Product</td>
+			<td>Date Bought</td>
+			<td>Buyer</td>
+			<td>Amount</td>
+		</tr>
+	</th>
+	<% @sales.each do |s| %>
+	<tr>
+		<td><%= s.shoe_id %></td>
+		<td><%= s.created_at %></td>
+		<td><%= s.user_id %></td>
+		<td><%= s.amount %></td>
+	</tr>
+	<% end %>
+</table>
+<% @sales.each do |s| %>
+<p>Total <%= s.amount.collect { |x| x + x } %> </p>
+
+
+<% end %>

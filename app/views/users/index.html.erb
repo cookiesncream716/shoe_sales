@@ -1,0 +1,32 @@
+<h1>Register</h1>
+
+<form action="/users/create" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<p>First Name: <input type="text" name="user[first_name]"></p>
+	<p>Last Name: <input type="text" name="user[last_name]"></p>
+	<p>Email: <input type="text" name="user[email]"></p>
+	<p>Password: <input type="text" name="user[password]"></p>
+	<p>* Password should be at least 8 characters long</p>
+	<p>Password Confirmation: <input type="text" name="user[password_confirmation]"></p>
+	<p><input type="submit" value="Submit"></p>
+</form>
+
+<% if flash[:errors] %>
+	<% flash[:errors].each do |err| %>
+		<p><%= err %></p>
+	<% end %>
+<% end %>
+
+<%= flash[:wrong] %>
+
+<h1>Log In</h1>
+<form action="/users/log_in" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<p>Email: <input type="text" name="user[email]"></p>
+	<p>Password: <input type="text" name="user[password]"></p>
+	<p><input type="submit" name="Log In"></p>
+</form>
+
+<% if flash[:error] %>
+	<p><%= flash[:error] %></p>
+<% end %>
