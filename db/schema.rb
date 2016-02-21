@@ -39,8 +39,9 @@ ActiveRecord::Schema.define(version: 20160217201556) do
     t.string   "product"
     t.integer  "user_id"
     t.float    "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "sold",       default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "shoes", ["user_id"], name: "index_shoes_on_user_id"

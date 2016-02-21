@@ -20,7 +20,7 @@
 			<td>Action</td>
 		</tr>
 	</th>
-	<% @shoes.each do |shoe| %>
+	<% @user_shoes.each do |shoe| %>
 	<tr>
 		<td><%= shoe.product %></td>
 		<td><%= shoe.created_at %></td>
@@ -44,16 +44,16 @@
 			<td>Amount</td>
 		</tr>
 	</th>
-	<% @purchases.each do |p| %>
+	<% @user_purchases.each do |p| %>
 	<tr>
-		<td><%= p.shoe_id %></td>
+		<td><%= p.shoe.product %></td>
 		<td><%= p.created_at %></td>
-		<td><%= p.user_id %></td>
+		<td><%= p.shoe.user.first_name %> <%= p.shoe.user.last_name %></td>
 		<td><%= p.amount %></td>
 	</tr>
 	<% end %>
 </table>
-<p>Total</p>
+<p>Total  $<%= @total_purchases%></p>
 <br>
 <br>
 <h3>Sales</h3>
@@ -66,17 +66,19 @@
 			<td>Amount</td>
 		</tr>
 	</th>
-	<% @sales.each do |s| %>
-	<tr>
-		<td><%= s.shoe_id %></td>
-		<td><%= s.created_at %></td>
-		<td><%= s.user_id %></td>
-		<td><%= s.amount %></td>
-	</tr>
-	<% end %>
-</table>
-<% @sales.each do |s| %>
-<p>Total <%= s.amount.collect { |x| x + x } %> </p>
+		<% @user_sales.each do |s| %>
+		<tr>
+			<td><%= s.product %></td>
+			<td><%= s.sale.created_at %></td>
+			<td><%= s.sale.user.first_name %> <%= s.sale.user.last_name %></td>
+			<td><%= s.price %></td>
+		</tr>
+			
+			<% end %>
+	</table>
+
+	<p>Total $<%= @total_sales%></p>
 
 
-<% end %>
+
+
