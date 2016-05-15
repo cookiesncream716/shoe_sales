@@ -36,11 +36,6 @@ class UsersController < ApplicationController
 		@total_purchases = @user_purchases.sum("amount")	
 
 	end
-	def log_out
-		# logs current user out, clears session / redirects to log in page
-		session.clear
-		redirect_to "/"
-	end
 	def shoes
 		# gets current user
 		@user = User.find(session[:user_id])
@@ -66,6 +61,11 @@ class UsersController < ApplicationController
 		Shoe.find(params[:id]).update_attribute(:sold, true)
 		# send to current user dashboard
 		redirect_to "/users/%d" % session[:user_id]
+	end
+	def log_out
+		# logs current user out, clears session / redirects to log in page
+		session.clear
+		redirect_to "/"
 	end
 	private
 	def user_params
