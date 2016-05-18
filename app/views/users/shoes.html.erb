@@ -20,7 +20,7 @@
 				<td><%= s.product %></td>
 				<td><%= s.first_name %> <%= s.last_name %></td>
 				<td><%= s.created_at.strftime("%b %d, %Y") %></td>
-				<td><%= s.price %></td>
+				<td><%= number_to_currency(s.price) %></td>
 				<td><form action="/users/<%= s.id %>/buy" method="post" role="form">
 						<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 						<input type="hidden" name="_method" value="delete">

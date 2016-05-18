@@ -18,11 +18,11 @@
 				<td><%= p.shoe.product %></td>
 				<td><%= p.created_at.strftime("%b %d, %Y") %></td>
 				<td><%= p.shoe.user.first_name %> <%= p.shoe.user.last_name %></td>
-				<td><%= p.amount %></td>
+				<td><%= number_to_currency(p.amount) %></td>
 			</tr>
 			<% end %>
 		</table>
-		<p>Total  $<%= @total_purchases%></p>
+		<p>Total  <%= number_to_currency(@total_purchases) %></p>
 	</div>
 	<div class="shoe_table">
 		<h3>Sales</h3>
@@ -40,13 +40,13 @@
 					<td><%= s.product %></td>
 					<td><%= s.sale.created_at.strftime("%b %d, %Y") %></td>
 					<td><%= s.sale.user.first_name %> <%= s.sale.user.last_name %></td>
-					<td><%= s.price %></td>
+					<td><%= number_to_currency(s.price) %></td>
 				</tr>
 					
 				<% end %>
 		</table>
 
-		<p>Total $<%= @total_sales%></p>
+		<p>Total <%= number_to_currency(@total_sales) %></p>
 	</div>
 	<div class="shoe_table">
 		<h3>Shoes You Are Currently Selling</h3>
@@ -63,7 +63,7 @@
 			<tr>
 				<td><%= shoe.product %></td>
 				<td><%= shoe.created_at.strftime("%b %d, %Y") %></td>
-				<td><%= shoe.price %></td>
+				<td><%= number_to_currency(shoe.price) %></td>
 				<td><form action="/users/<%= shoe.id %>" method="post" role="form">
 						<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 						<input type="hidden" name="_method" value="delete">
