@@ -1,84 +1,95 @@
-<h1>Hi <%= @user.first_name %></h1>
-<a href ="/shoes">Go To All Products</a>
-<a href = "/users/log_out">Log Out</a>
-
-<p>Sell Product</p>
-<form action="/users/sell" method="post">
-	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-	<p>Name<input type="text" name="product"></p>
-	<p>Price<input type="text" name="price"></p>
-	<input type="submit" value="Sell">
-</form>
-
-<h3>Your products that are not yet sold</h3>
-<table>
-	<th>
-		<tr>
-			<td>Product</td>
-			<td>Date Posted</td>
-			<td>Amount</td>
-			<td>Action</td>
-		</tr>
-	</th>
-	<% @user_shoes.each do |shoe| %>
-	<tr>
-		<td><%= shoe.product %></td>
-		<td><%= shoe.created_at %></td>
-		<td><%= shoe.price %></td>
-		<td><form action="/users/<%= shoe.id %>" method="post">
-	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-	<input type="hidden" name="_method" value="delete">
-	<input type="submit" value="Remove">
-</form></td>
-	</tr>
-	<% end %>
-</table>
-
-<h3>Purchases</h3>
-<table>
-	<th>
-		<tr>
-			<td>Product</td>
-			<td>Date Bought</td>
-			<td>Seller</td>
-			<td>Amount</td>
-		</tr>
-	</th>
-	<% @user_purchases.each do |p| %>
-	<tr>
-		<td><%= p.shoe.product %></td>
-		<td><%= p.created_at %></td>
-		<td><%= p.shoe.user.first_name %> <%= p.shoe.user.last_name %></td>
-		<td><%= p.amount %></td>
-	</tr>
-	<% end %>
-</table>
-<p>Total  $<%= @total_purchases%></p>
-<br>
-<br>
-<h3>Sales</h3>
-<table>
-	<th>
-		<tr>
-			<td>Product</td>
-			<td>Date Bought</td>
-			<td>Buyer</td>
-			<td>Amount</td>
-		</tr>
-	</th>
-		<% @user_sales.each do |s| %>
-		<tr>
-			<td><%= s.product %></td>
-			<td><%= s.sale.created_at %></td>
-			<td><%= s.sale.user.first_name %> <%= s.sale.user.last_name %></td>
-			<td><%= s.price %></td>
-		</tr>
-			
+<div class='background2'>
+<div class="container">
+	<h1 class="text-center"><%= @user.first_name %>'s Dashboard</h1>
+	<a class="col-md-offset-10" href ="/shoes">Go To All Products</a>&nbsp&nbsp&nbsp&nbsp&nbsp<a href = "/users/log_out">Log Out</a>
+	<div class="top_table">
+		<h3>Purchases</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Shoe</th>
+					<th>Date Bought</th>
+					<th>Seller</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<% @user_purchases.each do |p| %>
+			<tr>
+				<td><%= p.shoe.product %></td>
+				<td><%= p.created_at.strftime("%b %d, %Y") %></td>
+				<td><%= p.shoe.user.first_name %> <%= p.shoe.user.last_name %></td>
+				<td><%= p.amount %></td>
+			</tr>
 			<% end %>
-	</table>
+		</table>
+		<p>Total  $<%= @total_purchases%></p>
+	</div>
+	<div class="shoe_table">
+		<h3>Sales</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Shoe</th>
+					<th>Date Bought</th>
+					<th>Buyer</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+				<% @user_sales.each do |s| %>
+				<tr>
+					<td><%= s.product %></td>
+					<td><%= s.sale.created_at.strftime("%b %d, %Y") %></td>
+					<td><%= s.sale.user.first_name %> <%= s.sale.user.last_name %></td>
+					<td><%= s.price %></td>
+				</tr>
+					
+				<% end %>
+		</table>
 
-	<p>Total $<%= @total_sales%></p>
-
-
-
-
+		<p>Total $<%= @total_sales%></p>
+	</div>
+	<div class="shoe_table">
+		<h3>Shoes You Are Currently Selling</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Shoe</th>
+					<th>Date Posted</th>
+					<th>Price</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<% @user_shoes.each do |shoe| %>
+			<tr>
+				<td><%= shoe.product %></td>
+				<td><%= shoe.created_at.strftime("%b %d, %Y") %></td>
+				<td><%= shoe.price %></td>
+				<td><form action="/users/<%= shoe.id %>" method="post" role="form">
+						<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+						<input type="hidden" name="_method" value="delete">
+						<button type="submit" class="btn btn-default">Remove</button>
+					</form></td>
+			</tr>
+			<% end %>
+		</table>
+		
+	</div>	
+	<div class="row">
+		<div class='col-md-4'>
+			<p>Add Shoes</p>
+			<form action="/users/sell" method="post" role="form" id="add_shoe">
+				<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+				<div class="form-group">
+					<label for="product">Shoe</label>
+					<input type="text" name="product" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="price">Price</label>
+					<input type="text" name="price" class="form-control">
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+			</form>
+		</div>
+	</div>	
+</div>
+</div>

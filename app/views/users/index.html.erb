@@ -1,34 +1,60 @@
+<div class='background'>
 <div class="container">
-	<h1 id="name">Shoe Swap</h1>
-	<h1>Register</h1>
-	<form action="/users/create" method="post">
-		<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-		<p>First Name: <input type="text" name="user[first_name]"></p>
-		<p>Last Name: <input type="text" name="user[last_name]"></p>
-		<p>Email: <input type="text" name="user[email]"></p>
-		<p>Password: <input type="text" name="user[password]"></p>
-		<p>* Password should be at least 8 characters long</p>
-		<p>Password Confirmation: <input type="text" name="user[password_confirmation]"></p>
-		<p><input type="submit" value="Submit"></p>
-	</form>
+	<h1 id="name" class="text-center index">Shoe Swap</h1>
+	<div class="col-md-offset-1 col-md-4">
+		<h1 class="index">Register</h1>
+		<form action="/users/create" method="post" role="form">
+			<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+			<div class="form-group">
+				<label for="first_name">First Name:</label>
+				<input type="text" class="form-control" name="user[first_name]">
+			</div>
+			<div class="form-group">
+				<label for="last_name">Last Name:</label>
+				<input type="text" class="form-control" name="user[last_name]">
+			</div>
+			<div class="form-group">
+				<label for="email">Email:</label>
+				<input type="text" class="form-control" name="user[email]">
+			</div>
+			<div class="form-group">
+				<label for="password">Password:</label>
+				<input type="text" class="form-control" name="user[password]">
+				<p>* Password should be at least 8 characters long</p>
+			</div>
+			<div class="form-group">
+				<label for="pwd">Password Confirmation:</label>
+				<input type="password" class="form-control" name="user[password_confirmation]">
+			</div>
+			<button type="submit" class="btn btn-default">Register</button>
+		</form>
 
-	<% if flash[:errors] %>
-		<% flash[:errors].each do |err| %>
-			<p><%= err %></p>
+		<% if flash[:errors] %>
+			<% flash[:errors].each do |err| %>
+				<p><%= err %></p>
+			<% end %>
 		<% end %>
-	<% end %>
 
-	<%= flash[:wrong] %>
+		<%= flash[:wrong] %>
+	</div>
+	<div class='col-md-offset-1 col-md-4'>
+		<h1 class="index">Log In</h1>
+		<form role="form" action="/users/log_in" method="post">
+			<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+			<div class="form-group">
+				<label for="email">Email:</label>
+				<input type="email" name="user[email]" class="form-control">
+			</div>
+			<div class="form-group">
+				<label for="password">Password:</label>
+				<input type="password" name="user[password]" class="form-control">
+			</div>
+			<button type="submit" class="btn btn-default">Log In</button>
+		</form>
 
-	<h1>Log In</h1>
-	<form action="/users/log_in" method="post">
-		<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-		<p>Email: <input type="text" name="user[email]"></p>
-		<p>Password: <input type="text" name="user[password]"></p>
-		<p><input type="submit" name="Log In"></p>
-	</form>
-
-	<% if flash[:error] %>
-		<p><%= flash[:error] %></p>
-	<% end %>
+		<% if flash[:error] %>
+			<p><%= flash[:error] %></p>
+		<% end %>
+	</div>
+</div>
 </div>
